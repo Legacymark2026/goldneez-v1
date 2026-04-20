@@ -2760,3 +2760,377 @@ model SocialProfile {
   @@unique([platform])
   @@map("social_profiles")
 }
+
+// ─────────────────────────────────────────────────────────
+//  GOLDNEEZ — E-COMMERCE MODELS
+// ─────────────────────────────────────────────────────────
+
+model StoreProductCategory {
+  id          String         @id @default(uuid())
+  name        String         @unique
+  slug        String         @unique
+  description String?
+  imageUrl    String?        @map("image_url")
+  parentId    String?        @map("parent_id")
+  position    Int            @default(0)
+  isActive    Boolean        @default(true) @map("is_active")
+  createdAt   DateTime       @default(now()) @map("created_at")
+  updatedAt   DateTime       @updatedAt @map("updated_at")
+  parent      StoreProductCategory?  @relation("CategoryHierarchy", fields: [parentId], references: [id])
+  children    StoreProductCategory[] @relation("CategoryHierarchy")
+  products    StoreProduct[]
+
+  @@index([slug])
+  @@map("store_product_categories")
+}
+
+model StoreCollection {
+  id          String                    @id @default(uuid())
+  name        String                    @unique
+  slug        String                    @unique
+  description String?
+  imageUrl    String?                   @map("image_url")
+  isActive    Boolean                   @default(true) @map("is_active")
+  position    Int                       @default(0)
+  createdAt   DateTime                  @default(now()) @map("created_at")
+  updatedAt   DateTime                  @updatedAt @map("updated_at")
+  products    StoreProductCollection[]
+
+  @@index([slug])
+  @@map("store_collections")
+}
+
+model StoreProduct {
+  id               String                   @id @default(uuid())
+  name             String
+  slug             String                   @unique
+  description      String?
+  shortDescription String?                  @map("short_description")
+  // Product images (JSON array of { url, alt, position })
+  images           Json                     @default("[]")
+  // Coffee-specific metadata
+  roastLevel       String?                  @map("roast_level")   // light | medium | dark | espresso
+  origin           String?                                          // Colombia, Ethiopia, etc.
+  processingMethod String?                  @map("processing_method") // washed | natural | honey
+  flavorNotes      String[]                 @map("flavor_notes")
+  altitude         String?                                          // 1800-2000 masl
+  weight           Decimal?                                         // in grams
+  // Pricing
+  basePrice        Decimal                  @map("base_price")    @db.Decimal(10, 2)
+  compareAtPrice   Decimal?                 @map("compare_at_price") @db.Decimal(10, 2)
+  costPrice        Decimal?                 @map("cost_price")    @db.Decimal(10, 2)
+  currency         String                   @default("COP")
+  // Inventory
+  sku              String?                  @unique
+  barcode          String?
+  trackInventory   Boolean                  @default(true) @map("track_inventory")
+  stockQuantity    Int                      @default(0) @map("stock_quantity")
+  lowStockAlert    Int                      @default(5) @map("low_stock_alert")
+  // SEO
+  metaTitle        String?                  @map("meta_title")
+  metaDescription  String?                  @map("meta_description")
+  // Status
+  status           String                   @default("draft")     // draft | active | archived
+  featured         Boolean                  @default(false)
+  isNew            Boolean                  @default(false) @map("is_new")
+  isBestSeller     Boolean                  @default(false) @map("is_best_seller")
+  categoryId       String?                  @map("category_id")
+  createdAt        DateTime                 @default(now()) @map("created_at")
+  updatedAt        DateTime                 @updatedAt @map("updated_at")
+  category         StoreProductCategory?    @relation(fields: [categoryId], references: [id])
+  variants         StoreProductVariant[]
+  collections      StoreProductCollection[]
+  cartItems        StoreCartItem[]
+  orderItems       StoreOrderItem[]
+  reviews          StoreReview[]
+  wishlistItems    StoreWishlistItem[]
+
+  @@index([slug])
+  @@index([status])
+  @@index([categoryId])
+  @@index([featured])
+  @@map("store_products")
+}
+
+model StoreProductVariant {
+  id            String       @id @default(uuid())
+  productId     String       @map("product_id")
+  name          String                             // e.g. "250g - Molido"
+  sku           String?      @unique
+  // Variant options (grind size, weight, etc.)
+  grindType     String?      @map("grind_type")   // whole_bean | fine | medium | coarse
+  weightGrams   Int?         @map("weight_grams")  // 125 | 250 | 500 | 1000
+  priceModifier Decimal      @default(0) @map("price_modifier") @db.Decimal(10, 2)
+  stockQuantity Int          @default(0) @map("stock_quantity")
+  imageUrl      String?      @map("image_url")
+  isDefault     Boolean      @default(false) @map("is_default")
+  isActive      Boolean      @default(true) @map("is_active")
+  createdAt     DateTime     @default(now()) @map("created_at")
+  updatedAt     DateTime     @updatedAt @map("updated_at")
+  product       StoreProduct @relation(fields: [productId], references: [id], onDelete: Cascade)
+  cartItems     StoreCartItem[]
+  orderItems    StoreOrderItem[]
+
+  @@index([productId])
+  @@map("store_product_variants")
+}
+
+model StoreProductCollection {
+  id           String          @id @default(uuid())
+  productId    String          @map("product_id")
+  collectionId String          @map("collection_id")
+  position     Int             @default(0)
+  collection   StoreCollection @relation(fields: [collectionId], references: [id], onDelete: Cascade)
+  product      StoreProduct    @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@unique([productId, collectionId])
+  @@map("store_product_collections")
+}
+
+// ── CART ──────────────────────────────────────────
+model StoreCart {
+  id           String          @id @default(uuid())
+  sessionId    String?         @unique @map("session_id")  // Guest cart
+  userId       String?         @map("user_id")             // Logged-in cart
+  discountCode String?         @map("discount_code")
+  discountType String?         @map("discount_type")       // percent | fixed
+  discountValue Decimal?       @map("discount_value") @db.Decimal(10, 2)
+  currency     String          @default("COP")
+  notes        String?
+  createdAt    DateTime        @default(now()) @map("created_at")
+  updatedAt    DateTime        @updatedAt @map("updated_at")
+  expiresAt    DateTime?       @map("expires_at")
+  items        StoreCartItem[]
+
+  @@index([sessionId])
+  @@index([userId])
+  @@map("store_carts")
+}
+
+model StoreCartItem {
+  id        String               @id @default(uuid())
+  cartId    String               @map("cart_id")
+  productId String               @map("product_id")
+  variantId String?              @map("variant_id")
+  quantity  Int
+  unitPrice Decimal              @map("unit_price") @db.Decimal(10, 2)
+  createdAt DateTime             @default(now()) @map("created_at")
+  cart      StoreCart            @relation(fields: [cartId], references: [id], onDelete: Cascade)
+  product   StoreProduct         @relation(fields: [productId], references: [id])
+  variant   StoreProductVariant? @relation(fields: [variantId], references: [id])
+
+  @@unique([cartId, productId, variantId])
+  @@index([cartId])
+  @@map("store_cart_items")
+}
+
+// ── ORDERS ────────────────────────────────────────
+model StoreOrder {
+  id                String              @id @default(uuid())
+  orderNumber       String              @unique @map("order_number") // GOLD-2026-0001
+  userId            String?             @map("user_id")
+  email             String
+  phone             String?
+  status            String              @default("pending")
+  // pending | confirmed | processing | shipped | delivered | cancelled | refunded
+  fulfillmentStatus String              @default("unfulfilled") @map("fulfillment_status")
+  // Amounts (COP)
+  subtotal          Decimal             @db.Decimal(10, 2)
+  shippingCost      Decimal             @default(0) @map("shipping_cost") @db.Decimal(10, 2)
+  discountAmount    Decimal             @default(0) @map("discount_amount") @db.Decimal(10, 2)
+  taxAmount         Decimal             @default(0) @map("tax_amount") @db.Decimal(10, 2)
+  total             Decimal             @db.Decimal(10, 2)
+  currency          String              @default("COP")
+  // Shipping
+  shippingAddressId String?             @map("shipping_address_id")
+  shippingMethod    String?             @map("shipping_method")
+  trackingNumber    String?             @map("tracking_number")
+  trackingUrl       String?             @map("tracking_url")
+  // Discount
+  discountCode      String?             @map("discount_code")
+  // Metadata
+  notes             String?
+  customerNote      String?             @map("customer_note")
+  ipAddress         String?             @map("ip_address")
+  userAgent         String?             @map("user_agent")
+  source            String              @default("web")  // web | instagram | whatsapp
+  createdAt         DateTime            @default(now()) @map("created_at")
+  updatedAt         DateTime            @updatedAt @map("updated_at")
+  shippedAt         DateTime?           @map("shipped_at")
+  deliveredAt       DateTime?           @map("delivered_at")
+  cancelledAt       DateTime?           @map("cancelled_at")
+  items             StoreOrderItem[]
+  payments          StorePayment[]
+  shippingAddress   StoreShippingAddress? @relation(fields: [shippingAddressId], references: [id])
+
+  @@index([userId])
+  @@index([status])
+  @@index([orderNumber])
+  @@index([email])
+  @@map("store_orders")
+}
+
+model StoreOrderItem {
+  id          String               @id @default(uuid())
+  orderId     String               @map("order_id")
+  productId   String               @map("product_id")
+  variantId   String?              @map("variant_id")
+  productName String               @map("product_name")  // snapshot
+  variantName String?              @map("variant_name")  // snapshot
+  sku         String?
+  quantity    Int
+  unitPrice   Decimal              @map("unit_price") @db.Decimal(10, 2)
+  totalPrice  Decimal              @map("total_price") @db.Decimal(10, 2)
+  imageUrl    String?              @map("image_url")     // snapshot
+  order       StoreOrder           @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  product     StoreProduct         @relation(fields: [productId], references: [id])
+  variant     StoreProductVariant? @relation(fields: [variantId], references: [id])
+
+  @@index([orderId])
+  @@map("store_order_items")
+}
+
+// ── PAYMENTS ──────────────────────────────────────
+model StorePayment {
+  id              String     @id @default(uuid())
+  orderId         String     @map("order_id")
+  provider        String                       // stripe | mercadopago | cash | transfer
+  status          String     @default("pending")
+  // pending | approved | rejected | cancelled | refunded | in_process
+  amount          Decimal    @db.Decimal(10, 2)
+  currency        String     @default("COP")
+  // Stripe
+  stripePaymentIntentId String? @map("stripe_payment_intent_id")
+  stripeChargeId        String? @map("stripe_charge_id")
+  // MercadoPago
+  mpPaymentId     String?    @map("mp_payment_id")
+  mpPreferenceId  String?    @map("mp_preference_id")
+  mpExternalRef   String?    @map("mp_external_ref")
+  // Common
+  providerResponse Json?     @map("provider_response")
+  failureReason   String?    @map("failure_reason")
+  refundedAt      DateTime?  @map("refunded_at")
+  paidAt          DateTime?  @map("paid_at")
+  createdAt       DateTime   @default(now()) @map("created_at")
+  updatedAt       DateTime   @updatedAt @map("updated_at")
+  order           StoreOrder @relation(fields: [orderId], references: [id], onDelete: Cascade)
+
+  @@index([orderId])
+  @@index([provider, status])
+  @@index([stripePaymentIntentId])
+  @@index([mpPaymentId])
+  @@map("store_payments")
+}
+
+// ── SHIPPING ADDRESS ──────────────────────────────
+model StoreShippingAddress {
+  id           String       @id @default(uuid())
+  userId       String?      @map("user_id")
+  firstName    String       @map("first_name")
+  lastName     String       @map("last_name")
+  company      String?
+  address1     String
+  address2     String?
+  city         String
+  state        String
+  postalCode   String       @map("postal_code")
+  country      String       @default("CO")
+  phone        String?
+  isDefault    Boolean      @default(false) @map("is_default")
+  createdAt    DateTime     @default(now()) @map("created_at")
+  orders       StoreOrder[]
+
+  @@index([userId])
+  @@map("store_shipping_addresses")
+}
+
+// ── REVIEWS ───────────────────────────────────────
+model StoreReview {
+  id         String       @id @default(uuid())
+  productId  String       @map("product_id")
+  userId     String?      @map("user_id")
+  authorName String       @map("author_name")
+  rating     Int                              // 1–5
+  title      String?
+  body       String?
+  verified   Boolean      @default(false)     // purchased → verified
+  approved   Boolean      @default(false)
+  helpful    Int          @default(0)
+  createdAt  DateTime     @default(now()) @map("created_at")
+  product    StoreProduct @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@index([productId])
+  @@index([approved])
+  @@map("store_reviews")
+}
+
+// ── DISCOUNTS / COUPONS ───────────────────────────
+model StoreDiscount {
+  id              String    @id @default(uuid())
+  code            String    @unique
+  description     String?
+  type            String    @default("percent")  // percent | fixed | free_shipping
+  value           Decimal   @db.Decimal(10, 2)
+  minOrderAmount  Decimal?  @map("min_order_amount") @db.Decimal(10, 2)
+  maxUses         Int?      @map("max_uses")
+  usedCount       Int       @default(0) @map("used_count")
+  isActive        Boolean   @default(true) @map("is_active")
+  startsAt        DateTime? @map("starts_at")
+  expiresAt       DateTime? @map("expires_at")
+  createdAt       DateTime  @default(now()) @map("created_at")
+  updatedAt       DateTime  @updatedAt @map("updated_at")
+
+  @@index([code])
+  @@index([isActive])
+  @@map("store_discounts")
+}
+
+// ── WISHLIST ──────────────────────────────────────
+model StoreWishlist {
+  id        String              @id @default(uuid())
+  userId    String              @unique @map("user_id")
+  createdAt DateTime            @default(now()) @map("created_at")
+  items     StoreWishlistItem[]
+
+  @@map("store_wishlists")
+}
+
+model StoreWishlistItem {
+  id         String        @id @default(uuid())
+  wishlistId String        @map("wishlist_id")
+  productId  String        @map("product_id")
+  addedAt    DateTime      @default(now()) @map("added_at")
+  product    StoreProduct  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  wishlist   StoreWishlist @relation(fields: [wishlistId], references: [id], onDelete: Cascade)
+
+  @@unique([wishlistId, productId])
+  @@index([wishlistId])
+  @@map("store_wishlist_items")
+}
+
+// ── STORE SETTINGS ────────────────────────────────
+model StoreSettings {
+  id                  String   @id @default(uuid())
+  storeName           String   @default("GOLDNEEZ") @map("store_name")
+  storeEmail          String?  @map("store_email")
+  storePhone          String?  @map("store_phone")
+  currency            String   @default("COP")
+  weightUnit          String   @default("g") @map("weight_unit")
+  // Payments
+  stripeEnabled       Boolean  @default(false) @map("stripe_enabled")
+  mpEnabled           Boolean  @default(false) @map("mp_enabled")
+  cashEnabled         Boolean  @default(true) @map("cash_enabled")
+  // Shipping
+  freeShippingMin     Decimal? @map("free_shipping_min") @db.Decimal(10, 2)
+  defaultShippingCost Decimal  @default(15000) @map("default_shipping_cost") @db.Decimal(10, 2)
+  // Tax
+  taxRate             Decimal  @default(19) @map("tax_rate") @db.Decimal(5, 2)
+  includeTaxInPrice   Boolean  @default(false) @map("include_tax_in_price")
+  // Emails
+  orderConfirmEmail   Boolean  @default(true) @map("order_confirm_email")
+  shippingEmail       Boolean  @default(true) @map("shipping_email")
+  createdAt           DateTime @default(now()) @map("created_at")
+  updatedAt           DateTime @updatedAt @map("updated_at")
+
+  @@map("store_settings")
+}

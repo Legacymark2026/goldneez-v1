@@ -1,5 +1,5 @@
 {
-  "name": "legacymark-monorepo",
+  "name": "goldneez-monorepo",
   "private": true,
   "workspaces": [
     "apps/*",
