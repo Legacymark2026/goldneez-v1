@@ -1,0 +1,42 @@
+{
+    "buildCommand": "cd apps/web && prisma generate && prisma migrate deploy && next build",
+    "devCommand": "cd apps/web && next dev",
+    "installCommand": "cd apps/web && npm install",
+    "outputDirectory": "apps/web/.next",
+    "framework": "nextjs",
+    "git": {
+        "deploymentEnabled": {
+            "main": true
+        }
+    },
+    "regions": [
+        "iad1"
+    ],
+    "headers": [
+        {
+            "source": "/(.*)",
+            "headers": [
+                {
+                    "key": "X-Content-Type-Options",
+                    "value": "nosniff"
+                },
+                {
+                    "key": "X-Frame-Options",
+                    "value": "DENY"
+                },
+                {
+                    "key": "X-XSS-Protection",
+                    "value": "1; mode=block"
+                },
+                {
+                    "key": "Referrer-Policy",
+                    "value": "strict-origin-when-cross-origin"
+                },
+                {
+                    "key": "Permissions-Policy",
+                    "value": "camera=(), microphone=(), geolocation=()"
+                }
+            ]
+        }
+    ]
+}

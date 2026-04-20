@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./apps/web/*"],
+      "@/modules/*": ["./apps/web/modules/*"],
+      "@/shared/*": ["./apps/web/shared/*"]
+    }
+  },
+  "files": [],
+  "references": [
+    { "path": "./apps/web" },
+    { "path": "./packages/rbac" }
+  ]
+}
