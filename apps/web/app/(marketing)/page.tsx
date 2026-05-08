@@ -77,7 +77,8 @@ export default async function HomePage() {
                         </h2>
                         <p className="text-gray-400 mb-8 max-w-xl mx-auto">
                             Disfruta del mejor café colombiano tipo exportación.直接de lafinca a tu taza.
-<Link 
+                        </p>
+                        <Link 
                             href="/productos"
                             className="inline-block bg-amber-500 hover:bg-amber-600 text-black font-bold px-8 py-4 rounded-xl transition-all hover:scale-105 shadow-lg shadow-amber-500/20"
                         >
