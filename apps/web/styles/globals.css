@@ -13,64 +13,63 @@
 
 :root {
   /* Shadcn-ui (dark) */
-  --background: 222 47% 4%;
-  --foreground: 210 40% 95%;
-  --card: 223 47% 6%;
-  --card-foreground: 210 40% 95%;
-  --popover: 223 47% 5%;
-  --popover-foreground: 210 40% 95%;
-  --primary: 173 84% 32%;
-  /* teal-600 */
-  --primary-foreground: 210 40% 98%;
-  --secondary: 217 33% 13%;
-  --secondary-foreground: 210 40% 90%;
-  --muted: 217 33% 15%;
-  --muted-foreground: 215 20% 55%;
-  --accent: 173 84% 20%;
-  --accent-foreground: 168 84% 80%;
+  --background: 0 0% 0%;
+  --foreground: 0 0% 100%;
+  --card: 0 0% 6%;
+  --card-foreground: 0 0% 100%;
+  --popover: 0 0% 5%;
+  --popover-foreground: 0 0% 100%;
+  --primary: 45 100% 50%;
+  /* amber-500 #FFBF00 */
+  --primary-foreground: 0 0% 0%;
+  --secondary: 0 0% 13%;
+  --secondary-foreground: 0 0% 90%;
+  --muted: 0 0% 15%;
+  --muted-foreground: 0 0% 55%;
+  --accent: 45 100% 50%;
+  --accent-foreground: 0 0% 0%;
   --destructive: 0 63% 40%;
-  --destructive-foreground: 210 40% 98%;
-  --border: 217 33% 14%;
-  --input: 217 33% 14%;
-  --ring: 173 84% 32%;
+  --destructive-foreground: 0 0% 98%;
+  --border: 0 0% 14%;
+  --input: 0 0% 14%;
+  --ring: 45 100% 50%;
   --radius: 0.15rem;
   /* rounded-sm to match home */
 
   /* ── Home-page Design Tokens ─────────────────────────────────────────── */
 
   /* Backgrounds */
-  --ds-bg: #020617;
-  /* slate-950 — exactly home page */
-  --ds-bg-deep: #010409;
-  /* even deeper for sidebar */
-  --ds-surface: rgba(15, 23, 42, 0.5);
-  /* slate-900/50 */
-  --ds-surface-2: rgba(15, 23, 42, 0.7);
+  --ds-bg: #000000;
+  /* negro — exactly home page */
+  --ds-bg-deep: #000000;
+  /* negro profundo para sidebar */
+  --ds-surface: rgba(0, 0, 0, 0.5);
+  --ds-surface-2: rgba(0, 0, 0, 0.7);
 
   /* Borders */
-  --ds-border: rgba(30, 41, 59, 0.8);
-  /* slate-800 */
-  --ds-border-glow: rgba(13, 148, 136, 0.3);
-  /* teal-600/30 */
+  --ds-border: rgba(51, 51, 51, 0.8);
+  /* gris-800 */
+  --ds-border-glow: rgba(255, 191, 0, 0.3);
+  /* amber-500/30 */
 
   /* Text */
-  --ds-text-primary: #f8fafc;
-  /* slate-50 */
-  --ds-text-secondary: #cbd5e1;
-  /* slate-300 — improved contrast from slate-400 */
-  --ds-text-muted: #64748b;
-  /* slate-500 — improved contrast from slate-600 */
-  --ds-text-dim: #475569;
-  /* slate-600 — improved contrast from slate-700 */
+  --ds-text-primary: #ffffff;
+  /* blanco */
+  --ds-text-secondary: #d4d4d4;
+  /* gris-300 */
+  --ds-text-muted: #737373;
+  /* gris-500 */
+  --ds-text-dim: #525252;
+  /* gris-600 */
 
-  /* Teal accent system */
-  --ds-teal: #0d9488;
-  /* teal-600 — for backgrounds/accents */
-  --ds-teal-md: #14b8a6;
-  /* teal-500 — for text (WCAG AA) */
-  --ds-teal-bright: #2dd4bf;
-  /* teal-400 */
-  --ds-teal-dim: rgba(13, 148, 136, 0.15);
+  /* Amber accent system */
+  --ds-amber: #FFBF00;
+  /* amber-500 — for backgrounds/accents */
+  --ds-amber-md: #FFBF00;
+  /* amber-500 */
+  --ds-amber-bright: #FFBF00;
+  /* amber-400 */
+  --ds-amber-dim: rgba(255, 191, 0, 0.15);
 
   /* Semantic */
   --ds-success: #10b981;
@@ -80,12 +79,12 @@
 
   /* Shadows */
   --ds-shadow-card: 0 20px 50px -12px rgba(0, 0, 0, 0.6);
-  --ds-shadow-teal: 0 20px 50px -12px rgba(13, 148, 136, 0.15);
-  --ds-glow-teal: 0 0 60px -15px rgba(13, 148, 136, 0.4);
+  --ds-shadow-amber: 0 20px 50px -12px rgba(255, 191, 0, 0.15);
+  --ds-glow-amber: 0 0 60px -15px rgba(255, 191, 0, 0.4);
 
   /* Sidebar tokens */
-  --ds-sidebar-bg: #010409;
-  --ds-sidebar-border: rgba(30, 41, 59, 0.6);
+  --ds-sidebar-bg: #000000;
+  --ds-sidebar-border: rgba(51, 51, 51, 0.6);
 }
 
 /* ── GLOBAL ──────────────────────────────────────────────────────────────── */

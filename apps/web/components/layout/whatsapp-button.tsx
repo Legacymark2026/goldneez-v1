@@ -3,7 +3,7 @@ import { siteConfig } from "@/lib/site-config";
 export function WhatsAppButton() {
     return (
         <a
-            href={`${siteConfig.links.whatsapp}?text=Hola%20LegacyMark%2C%20me%20gustar%C3%ADa%20obtener%20m%C3%A1s%20informaci%C3%B3n%20sobre%20sus%20servicios.`}
+            href={`${siteConfig.links.whatsapp}?text=Hola%20GoldNeez%2C%20me%20gustar%C3%ADa%20obtener%20m%C3%A1s%20informaci%C3%B3n%20sobre%20sus%20caf%C3%A9s%20premium.`}
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Contactar por WhatsApp"

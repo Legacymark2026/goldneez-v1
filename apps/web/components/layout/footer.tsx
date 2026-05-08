@@ -137,7 +137,7 @@ export function Footer() {
                             <div className="relative h-16 w-[220px] transition-all duration-300 group-hover:drop-shadow-[0_0_12px_rgba(20,184,166,0.4)]">
                                 <NextImage
                                     src="/logo.png"
-                                    alt="LegacyMark"
+                                    alt="GoldNeez"
                                     fill
                                     className="object-contain brightness-0 invert"
                                     sizes="220px"
