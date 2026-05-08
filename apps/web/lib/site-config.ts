@@ -19,7 +19,7 @@ export const siteConfig = {
         linkedin: "https://www.linkedin.com/company/goldneez/",
         facebook: "https://www.facebook.com/profile.php?id=61557734744442",
         instagram: "https://www.instagram.com/goldneez",
-        whatsapp: "https://wa.me/5731658659",
+        whatsapp: "https://api.whatsapp.com/send/?phone=573160658659",
     },
     keywords: [
         "Café Premium",
