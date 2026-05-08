@@ -73,10 +73,10 @@ export default async function HomePage() {
                             ☕ CAFÉ FRESCO
                         </span>
                         <h2 className="text-3xl md:text-4xl font-black text-white mb-4">
-                            Café Premium de Toledo, Norte de Santander
+                            El mundo del café con las exportaciones
                         </h2>
                         <p className="text-gray-400 mb-8 max-w-xl mx-auto">
-                            Disfruta del mejor café colombiano tipo exportación.直接de lafinca a tu taza.
+                            Creando recuerdos dorados. Café 100% colombiano de Toledo, Norte de Santander.
                         </p>
                         <Link 
                             href="/productos"
