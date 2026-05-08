@@ -30,7 +30,7 @@ export default async function HomePage() {
     const experts = await getExperts();
 
     return (
-        <main className="relative bg-slate-950 text-white overflow-hidden scroll-smooth">
+        <main className="bg-black">
             <OrganizationSchema
                 name={siteConfig.name}
                 url={siteConfig.url}
@@ -50,11 +50,11 @@ export default async function HomePage() {
             />
             <FAQSchema
                 questions={[
-                    { question: "¿Cómo garantizan que la IA realmente genere retorno y no sea solo una tendencia?", answer: "No implementamos IA de forma aislada; diseñamos Arquitecturas de Autonomía. Nuestro protocolo comienza con el mapeo de fricciones operativas y cuellos de botella en tu embudo de ventas. Desarrollamos agentes personalizados que se integran a tu stack tecnológico actual (CRM, APIs de pauta) para automatizar la captura y calificación de leads en tiempo real. La meta no es 'usar IA', es reducir tu costo de adquisición (CAC) y liberar el talento humano para tareas de cierre de alto impacto." },
-                    { question: "¿Por qué utilizan Next.js y arquitecturas de microservicios para sus proyectos?", answer: "La autoridad digital se construye sobre la velocidad y la escalabilidad. Utilizamos Next.js porque ofrece el rendimiento más alto del mercado (Core Web Vitals), esencial para el SEO técnico y la retención de usuarios. Al trabajar con microservicios y bases de datos optimizadas (PostgreSQL/Redis), garantizamos que tu ecosistema digital sea capaz de soportar picos de tráfico masivos y expansión internacional sin degradación del servicio ni deuda técnica." },
-                    { question: "¿Cómo solucionan la pérdida de datos de conversión por las restricciones de privacidad actuales?", answer: "Implementamos Protocolos de Medición de Lazo Cerrado. Ante las limitaciones de las cookies de terceros, integramos la API de Conversiones (CAPI) directamente desde tu servidor. Esto nos permite enviar señales de datos precisas a las plataformas de pauta (Meta, Google), recuperando la visibilidad del ROAS real y permitiendo que los algoritmos de aprendizaje automático optimicen tus campañas con datos de primera fuente, no con suposiciones." },
-                    { question: "¿Qué estrategia siguen para posicionar una marca en mercados competitivos como EE.UU. o España?", answer: "La expansión no es solo traducción, es Localización de Autoridad. Aplicamos estrategias de SEO Internacional dinámico y arquitecturas de contenido específicas por región. Analizamos los motores de respuesta (AEO) de cada mercado para asegurar que tu marca sea la solución recomendada por la IA. Combinamos esto con una infraestructura técnica que detecta la ubicación del usuario para entregar una experiencia de carga ultrarrápida desde el nodo más cercano, eliminando cualquier fricción geográfica." },
-                    { question: "¿Cómo es el seguimiento una vez lanzado el ecosistema digital?", answer: "LegacyMark no entrega proyectos, gestiona activos digitales. Cada cliente tiene acceso a su propio Client Terminal, donde monitoreamos en tiempo real el estado de los protocolos activos, métricas de rendimiento y actualizaciones de seguridad mTLS. Operamos bajo un modelo de iteración continua: utilizamos los datos del mercado para ajustar la estrategia mensualmente, asegurando que tu infraestructura evolucione al mismo ritmo que la tecnología." }
+                    { question: "¿Qué tipo de café ofrecen?", answer: "Ofrecemos café 100% colombiano de Toledo, Norte de Santander. Tenemos café en grano, molido, yCapsulas de la más alta calidad tipo exportación." },
+                    { question: "¿De dónde viene el café GoldNeez?", answer: "Nuestro café viene directamente de las fincas de Toledo, Norte de Santander. Trabajamos con agricultores locales para garantizar un café de origen controlado y sostenible." },
+                    { question: "¿Hacen envíos a todo Colombia?", answer: "Sí, hacemos envíos a todo Colombia. El café se tuesta y envía en máximo 48 horas para garantizar frescura." },
+                    { question: "¿Qué métodos de pago aceptan?", answer: "Aceptamos pagos con Stripe, MercadoPago, y transferencias. También puedes ordenar directamente por WhatsApp." },
+                    { question: "¿Ofrecen café para empresas o locales?", answer: "Sí, temos opciones B2B para cafeterías, restaurantes y oficinas. Contáctanos por WhatsApp para cotización." }
                 ]}
             />
 
@@ -62,27 +62,26 @@ export default async function HomePage() {
             <div className="bg-noise fixed inset-0 z-50 pointer-events-none mix-blend-multiply opacity-[0.015]" />
 
             {/* Global Spotlight Glow for "Wow Factor" */}
-            <div className="absolute top-[-20%] left-1/2 -translate-x-1/2 w-[120%] h-[800px] bg-[radial-gradient(ellipse_at_top,rgba(20,184,166,0.08)_0%,transparent_60%)] pointer-events-none -z-10" />
+            <div className="absolute top-[-20%] left-1/2 -translate-x-1/2 w-[120%] h-[800px] bg-[radial-gradient(ellipse_at_top,rgba(255,191,0,0.08)_0%,transparent_60%)] pointer-events-none -z-10" />
 
             <div data-ga-section="hero"><FuturisticHero /></div>
 
             <div data-ga-section="lead-magnet">
-                <section className="py-16 bg-gradient-to-r from-teal-900/20 to-sky-900/20 border-y border-teal-500/20">
+                <section className="py-16 bg-gradient-to-r from-amber-900/20 to-yellow-900/20 border-y border-amber-500/20">
                     <div className="max-w-4xl mx-auto text-center px-6">
-                        <span className="inline-block px-3 py-1 rounded-full bg-teal-500/10 text-teal-400 text-xs font-bold mb-4 border border-teal-500/20">
-                            📥 RECURSO NUEVO
+                        <span className="inline-block px-3 py-1 rounded-full bg-amber-500/10 text-amber-400 text-xs font-bold mb-4 border border-amber-500/20">
+                            ☕ CAFÉ FRESCO
                         </span>
                         <h2 className="text-3xl md:text-4xl font-black text-white mb-4">
-                            Guía Gratis: Cómo Crear una Página Web que Vende
+                            Café Premium de Toledo, Norte de Santander
                         </h2>
-                        <p className="text-slate-400 mb-8 max-w-xl mx-auto">
-                            Descarga nuestra guía de 10 páginas y aprende las estrategias que usan las agencies top para convertir visitantes en clientes.
-                        </p>
-                        <Link 
-                            href="/recursos/guia-pagina-web"
-                            className="inline-block bg-teal-500 hover:bg-teal-600 text-white font-bold px-8 py-4 rounded-xl transition-all hover:scale-105 shadow-lg shadow-teal-500/20"
+                        <p className="text-gray-400 mb-8 max-w-xl mx-auto">
+                            Disfruta del mejor café colombiano tipo exportación.直接de lafinca a tu taza.
+<Link 
+                            href="/productos"
+                            className="inline-block bg-amber-500 hover:bg-amber-600 text-black font-bold px-8 py-4 rounded-xl transition-all hover:scale-105 shadow-lg shadow-amber-500/20"
                         >
-                            Obtener Guía Gratis →
+                            Ver Productos ☕
                         </Link>
                     </div>
                 </section>
