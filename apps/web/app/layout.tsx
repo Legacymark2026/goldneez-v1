@@ -67,12 +67,12 @@ export async function generateMetadata(): Promise<Metadata> {
       title: siteConfig.name,
       description: siteConfig.description,
       images: [siteConfig.ogImage],
-      creator: "@legacymark",
+      creator: "@goldneez",
     },
     icons: {
-      icon: "/favicon.ico?v=2",
-      shortcut: "/favicon-16x16.png?v=2",
-      apple: "/apple-touch-icon.png?v=2",
+      icon: "https://static.wixstatic.com/media/5b2a57_6b009588a9af428fbc453f3548b59ec7~mv2.png",
+      shortcut: "https://static.wixstatic.com/media/5b2a57_6b009588a9af428fbc453f3548b59ec7~mv2.png",
+      apple: "https://static.wixstatic.com/media/5b2a57_6b009588a9af428fbc453f3548b59ec7~mv2.png",
     },
     manifest: "/site.webmanifest",
     verification: {
