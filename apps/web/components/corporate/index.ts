@@ -1,0 +1,11 @@
+export { default as CorporateHeader } from './Header';
+export { default as CorporateHero } from './Hero';
+export { default as CorporateHistory } from './History';
+export { default as CorporateOrigin } from './Origin';
+export { default as CorporateProducts } from './Products';
+export { default as CorporateProcess } from './Process';
+export { default as CorporateExperience } from './Experience';
+export { default as CorporateGallery } from './Gallery';
+export { default as CorporateTestimonials } from './Testimonials';
+export { default as CorporateNewsletter } from './Newsletter';
+export { default as CorporateFooter } from './Footer';

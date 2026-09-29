@@ -18,6 +18,16 @@ module.exports = {
         },
         extend: {
             colors: {
+                amber: {
+                    DEFAULT: "#FFBF00",
+                    dark: "#FF9900",
+                    light: "#FFD966",
+                },
+                aluminum: {
+                    DEFAULT: "#E5E5E5",
+                    dark: "#999999",
+                    light: "#F5F5F5",
+                },
                 border: "hsl(var(--border))",
                 input: "hsl(var(--input))",
                 ring: "hsl(var(--ring))",
@@ -52,10 +62,21 @@ module.exports = {
                     foreground: "hsl(var(--card-foreground))",
                 },
             },
+            fontFamily: {
+                cinzel: ['"Cinzel Decorative"', 'serif'],
+                quattrocento: ['"Quattrocento Sans"', 'sans-serif'],
+            },
             borderRadius: {
                 lg: "var(--radius)",
                 md: "calc(var(--radius) - 2px)",
                 sm: "calc(var(--radius) - 4px)",
+                xl: "calc(var(--radius) + 4px)",
+                xs: "calc(var(--radius) - 6px)",
+            },
+            boxShadow: {
+                xs: "0 1px 2px 0 rgb(0 0 0 / 0.05)",
+                glow: "0 0 60px rgba(255,191,0,0.3), 0 0 120px rgba(255,191,0,0.1)",
+                "glow-lg": "0 0 80px rgba(255,191,0,0.5), 0 0 160px rgba(255,191,0,0.2)",
             },
             keyframes: {
                 "accordion-down": {
@@ -74,11 +95,21 @@ module.exports = {
                         opacity: 0,
                     },
                 },
+                "ticker": {
+                    "0%": { transform: "translateX(0)" },
+                    "100%": { transform: "translateX(-50%)" },
+                },
+                "pulse-glow": {
+                    "0%, 100%": { boxShadow: "0 0 20px rgba(255,191,0,0.3)" },
+                    "50%": { boxShadow: "0 0 40px rgba(255,191,0,0.6)" },
+                },
             },
             animation: {
                 "accordion-down": "accordion-down 0.2s ease-out",
                 "accordion-up": "accordion-up 0.2s ease-out",
                 "meteor-effect": "meteor-effect 5s linear infinite",
+                "ticker": "ticker 30s linear infinite",
+                "pulse-glow": "pulse-glow 3s ease-in-out infinite",
             },
         },
     },

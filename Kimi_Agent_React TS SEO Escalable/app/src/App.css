@@ -1,0 +1,86 @@
+/* Goldneez App Styles */
+
+/* Smooth scroll behavior */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Custom easing */
+.ease-smooth {
+  transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Line clamp utility */
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* 3D transforms */
+.rotate-y-neg-15 {
+  transform: rotateY(-15deg);
+}
+
+.rotate-y-15 {
+  transform: rotateY(15deg);
+}
+
+.hover\:rotate-y-0:hover {
+  transform: rotateY(0deg);
+}
+
+/* Transition durations */
+.duration-600 {
+  transition-duration: 600ms;
+}
+
+/* Will change for GPU acceleration */
+.will-change-transform {
+  will-change: transform;
+}
+
+/* Custom scrollbar for webkit browsers */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #000000;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #FFBF00;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #FF9900;
+}
+
+/* Focus visible for accessibility */
+:focus-visible {
+  outline: 2px solid #FFBF00;
+  outline-offset: 2px;
+}
+
+/* Print styles */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+}

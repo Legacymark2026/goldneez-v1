@@ -1,6 +1,7 @@
 import { CorporateHero } from "@/components/sections/corporate-hero";
 import { CorporatePhilosophy } from "@/components/sections/corporate-philosophy";
 import { CorporateValues } from "@/components/sections/corporate-values";
+import { CorporateTimeline } from "@/components/sections/corporate-timeline";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import { getExperts } from "@/actions/experts";
@@ -36,6 +37,9 @@ export default async function AboutPage() {
 
             {/* 3. Values Bento Grid */}
             <CorporateValues />
+
+            {/* 3.5 Timeline */}
+            <CorporateTimeline />
 
             {/* 4. Team Section (Polished) */}
             <section className="py-24 bg-slate-900 text-white relative overflow-hidden">

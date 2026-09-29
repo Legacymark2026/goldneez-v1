@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { JetBrains_Mono } from "next/font/google";
+import { Cinzel_Decorative, Quattrocento_Sans } from "next/font/google";
 import "../styles/globals.css";
 import { Providers } from "@/components/providers";
 import { AnalyticsProvider } from "@/components/analytics/analytics-provider";
@@ -14,6 +15,18 @@ import { ClientDecorativeElements } from "@/components/layout/client-decorative-
 const jetbrainsMono = JetBrains_Mono({
   variable: "--font-jetbrains-mono",
   subsets: ["latin"],
+});
+
+const cinzelDecorative = Cinzel_Decorative({
+  variable: "--font-cinzel",
+  subsets: ["latin"],
+  weight: ["400", "700", "900"],
+});
+
+const quattrocentoSans = Quattrocento_Sans({
+  variable: "--font-quattrocento",
+  subsets: ["latin"],
+  weight: ["400", "700"],
 });
 
 import { siteConfig } from "@/lib/site-config";
@@ -108,7 +121,7 @@ export default async function RootLayout({
     <html lang={locale} suppressHydrationWarning>
       <body
         suppressHydrationWarning
-        className={`font-sans ${jetbrainsMono.variable} antialiased selection:bg-teal-500 selection:text-white`}
+        className={`font-sans ${jetbrainsMono.variable} ${cinzelDecorative.variable} ${quattrocentoSans.variable} antialiased selection:bg-teal-500 selection:text-white`}
       >
         <Providers session={session}>
           <InternalAnalyticsProvider userId={session?.user?.id}>
